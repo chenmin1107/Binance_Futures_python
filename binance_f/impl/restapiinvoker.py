@@ -30,7 +30,8 @@ def get_limits_usage(response):
 
 def call_sync(request):
     if request.method == "GET":
-        response = requests.get(request.host + request.url, headers=request.header)
+        response = requests.get(request.host + request.url, headers=request.header, \
+            timeout=5)
         limits = get_limits_usage(response)
         json_wrapper = parse_json_from_string(response.text)
         # print(response.text)
