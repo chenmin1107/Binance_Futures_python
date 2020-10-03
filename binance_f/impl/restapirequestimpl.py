@@ -15,6 +15,7 @@ class RestApiRequestImpl(object):
         self.__api_key = api_key
         self.__secret_key = secret_key
         self.__server_url = server_url
+        self.time_adjustment = 2000
 
     def __create_request_by_get(self, url, builder):
         request = RestApiRequest()
@@ -43,7 +44,7 @@ class RestApiRequestImpl(object):
         request.method = "POST"
         request.host = self.__server_url
         builder.put_url("recvWindow", 60000)
-        builder.put_url("timestamp", str(get_current_timestamp() - 1000))
+        builder.put_url("timestamp", str(get_current_timestamp() - self.time_adjustment))
         create_signature(self.__secret_key, builder)
         request.header.update({'Content-Type': 'application/json'})
         request.header.update({"X-MBX-APIKEY": self.__api_key})
@@ -61,7 +62,7 @@ class RestApiRequestImpl(object):
         request.method = "DELETE"
         request.host = self.__server_url
         builder.put_url("recvWindow", 60000)
-        builder.put_url("timestamp", str(get_current_timestamp() - 1000))
+        builder.put_url("timestamp", str(get_current_timestamp() - self.time_adjustment))
         create_signature(self.__secret_key, builder)
         request.header.update({'Content-Type': 'application/json'})
         request.header.update({"X-MBX-APIKEY": self.__api_key})
@@ -78,7 +79,7 @@ class RestApiRequestImpl(object):
         request.method = "GET"
         request.host = self.__server_url
         builder.put_url("recvWindow", 60000)
-        builder.put_url("timestamp", str(get_current_timestamp() - 1000))
+        builder.put_url("timestamp", str(get_current_timestamp() - self.time_adjustment))
         create_signature(self.__secret_key, builder)
         request.header.update({"Content-Type": "application/x-www-form-urlencoded"})
         request.header.update({"X-MBX-APIKEY": self.__api_key})
@@ -95,7 +96,7 @@ class RestApiRequestImpl(object):
         request.method = "PUT"
         request.host = self.__server_url
         builder.put_url("recvWindow", 60000)
-        builder.put_url("timestamp", str(get_current_timestamp() - 1000))
+        builder.put_url("timestamp", str(get_current_timestamp() - self.time_adjustment))
         create_signature(self.__secret_key, builder)
         request.header.update({'Content-Type': 'application/json'})
         request.header.update({"X-MBX-APIKEY": self.__api_key})
