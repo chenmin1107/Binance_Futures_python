@@ -7,6 +7,7 @@ from binance_f.model.aggregatetrade import AggregateTrade
 from binance_f.model.candlestick import Candlestick
 from binance_f.model.markprice import MarkPrice
 from binance_f.model.openinterest import OpenInterest
+from binance_f.model.openintereststats import OpenInterestStats
 from binance_f.model.fundingrate import FundingRate
 from binance_f.model.tickerpricechangestatistics import TickerPriceChangeStatistics
 from binance_f.model.symbolprice import SymbolPrice
@@ -23,6 +24,7 @@ from binance_f.model.orderbookevent import OrderBookEvent
 from binance_f.model.diffdepthevent import DiffDepthEvent
 from binance_f.model.order import Order
 from binance_f.model.balance import Balance
+from binance_f.model.balancev2 import BalanceV2
 from binance_f.model.accountinformation import AccountInformation
 from binance_f.model.leverage import Leverage
 from binance_f.model.codeandmsg import CodeMsg

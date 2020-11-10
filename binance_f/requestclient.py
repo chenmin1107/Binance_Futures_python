@@ -202,6 +202,14 @@ class RequestClient(object):
         self.refresh_limits(response[1])
         return response[0]
 
+    def get_open_interest_stats(self, symbol: 'str', period: 'str', startTime: 'str' = None, endTime: 'str' = None, limit: 'int' = 30) -> any:
+        """
+        Open Interest Statistics (MARKET_DATA)
+        GET /futures/data/openInterestHist
+        """
+        response = call_sync(self.request_impl.get_open_interest_stats(symbol, period, startTime, endTime, limit))
+        self.refresh_limits(response[1])
+        return response[0]
 
     def change_position_mode(self, dualSidePosition: 'boolean' = None) -> any:
         """
@@ -326,6 +334,15 @@ class RequestClient(object):
         Get /fapi/v1/balance (HMAC SHA256)
         """
         response = call_sync(self.request_impl.get_balance())
+        self.refresh_limits(response[1])
+        return response[0]
+
+    def get_balance_v2(self) -> any:
+        """
+        Future Account Balance (USER_DATA)
+        Get /fapi/v2/balance (HMAC SHA256)
+        """
+        response = call_sync(self.request_impl.get_balance_v2())
         self.refresh_limits(response[1])
         return response[0]
 

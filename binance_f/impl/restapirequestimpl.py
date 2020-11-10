@@ -345,6 +345,26 @@ class RestApiRequestImpl(object):
         request.json_parser = parse
         return request
 
+    def get_open_interest_stats(self, symbol, period, startTime, endTime, limit):
+        builder = UrlParamsBuilder()
+        builder.put_url("symbol", symbol)
+        builder.put_url("period", period)
+        builder.put_url("startTime", startTime)
+        builder.put_url("endTime", endTime)
+        builder.put_url("limit", limit)
+
+        request = self.__create_request_by_get("/futures/data/openInterestHist", builder)
+
+        def parse(json_wrapper):
+            result = list()
+            data_list = json_wrapper.convert_2_array()
+            for item in data_list.get_items():
+                element = OpenInterestStats.json_parse(item)
+                result.append(element)
+            return result
+
+        request.json_parser = parse
+        return request
 
     def get_liquidation_orders(self, symbol, startTime, endTime, limit):
         builder = UrlParamsBuilder()
@@ -544,6 +564,22 @@ class RestApiRequestImpl(object):
             data_list = json_wrapper.convert_2_array()
             for item in data_list.get_items():
                 element = Balance.json_parse(item)
+                result.append(element)
+            return result
+
+        request.json_parser = parse
+        return request
+
+    def get_balance_v2(self):
+        builder = UrlParamsBuilder()
+
+        request = self.__create_request_by_get_with_signature("/fapi/v2/balance", builder)
+
+        def parse(json_wrapper):
+            result = list()
+            data_list = json_wrapper.convert_2_array()
+            for item in data_list.get_items():
+                element = BalanceV2.json_parse(item)
                 result.append(element)
             return result
 
